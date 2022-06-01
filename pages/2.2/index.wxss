@@ -1,0 +1,42 @@
+
+/* 5 progress已产生的进度条如何设置圆角？ */
+.wx-progress-inner-bar {
+  border-radius: 5px;
+}
+
+/* 9 */
+.wx-progress-info {
+  color: red;
+}
+
+/* 10 */
+.wx-progress-info {
+  color: red;
+  margin-left: 5px;
+}
+
+@font-face {
+  font-family: 'iconfont';  /* project id 1716930 */
+  src: url('//at.alicdn.com/t/font_1716930_xb17kb7m6cg.eot');
+  src: url('//at.alicdn.com/t/font_1716930_xb17kb7m6cg.eot?#iefix') format('embedded-opentype'),
+  url('//at.alicdn.com/t/font_1716930_xb17kb7m6cg.woff2') format('woff2'),
+  url('//at.alicdn.com/t/font_1716930_xb17kb7m6cg.woff') format('woff'),
+  url('//at.alicdn.com/t/font_1716930_xb17kb7m6cg.ttf') format('truetype'),
+  url('//at.alicdn.com/t/font_1716930_xb17kb7m6cg.svg#iconfont') format('svg');
+}
+
+.iconfont{
+  font-family: 'iconfont';
+  color: red;
+  font-size: 40px;
+}
+
+.icon-heart::after{
+  content: '\e8ab';
+  color: green;
+}
+
+.icon-3dglass::after{
+  content: '\e8ac';
+}
+

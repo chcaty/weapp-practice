@@ -1,0 +1,24 @@
+/**app.wxss**/
+@import "weui.wxss";
+.container {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  padding: 50rpx 0;
+  box-sizing: border-box;
+} 
+.section{
+  padding: 20px;
+}
+/* 最后一个section */
+.section:last-child{
+  padding-bottom: 100rpx;
+}
+.gap{
+  width: 100%;
+  height: auto;
+  margin-top:50px;
+  padding: 10px 0 10px;
+}

@@ -1,0 +1,13 @@
+<view class="example-container">
+
+<!-- 1&2 代码示例， 点击预览 -->
+<view class="gap">代码示例</view>
+<rich-text space="emsp" nodes="{{nodes}}" bindtap="tap"></rich-text>
+
+<!-- 使用parser组件 -->
+<view class="gap"></view>
+<parser bindimgtap="onTapImage" html="{{html}}" tag-style="{{tagStyle}}" />
+
+<view class="gap"></view>
+<view class="gap"></view>
+</view>

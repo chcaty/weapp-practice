@@ -1,0 +1,43 @@
+<!-- 2.2 progress组件简介：如何自定义实现一个环形进度条？ -->
+<view class="page-section">
+<view class="page-section-title">2.2</view>
+
+
+<view class="example-container">
+<!-- 2 代码示例-->
+<view class="gap">代码示例,单击模拟网络异步</view>
+<progress show-info bindtap="onTapProgressBar" stroke-width="2" percent="{{percentValue}}" backgroundColor="#f2f2f2" active-mode="forwards" active bindactiveend="onProgressActiveEnd"/>
+
+
+<!-- 5  progress已产生的进度条如何设置圆角？-->
+<view class="gap"></view>
+<view class="gap">progress已产生的进度条如何设置圆角？</view>
+<progress border-radius="5" percent="20" show-info />
+
+
+<!-- 6 已经加载完的进度条progress，怎么点击某个按钮让它重新加载呢？ -->
+<view class="gap"></view>
+<view class="gap">已经加载完的进度条progress，怎么点击某个按钮让它重新加载呢？</view>
+<progress bindtap="onTapProgressBar" stroke-width="2" percent="{{percentValue}}" active-mode="forwards" active show-info="{{false}}" bindactiveend="onProgressActiveEnd"/>
+<button bindtap="onTapReloadBtn">重新加载</button>
+
+
+<!-- 7 环形进度条 -->
+<view class="gap">环形进度条</view>
+<circle-progress id="progress1" percent="{{percentValue}}" />
+<button bindtap="drawProgress">redraw</button>
+
+<!-- 9  -->
+<view class="gap">progress 右边进度的百分比数字，它的颜色怎么设置？</view>
+<progress percent="40" stroke-width="5" show-info style="color:red"/>
+
+<!-- 从iconfront.cn搜索两个图标，以自定义的方式 -->
+<icon class="iconfont icon-heart"></icon>
+<icon class="iconfont icon-3dglass"></icon>
+
+
+<view class="gap"></view>
+<view class="gap"></view>
+</view>
+
+</view>

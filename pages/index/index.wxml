@@ -1,0 +1,17 @@
+<!--index.wxml-->
+<view class="container">
+  微信小程序全栈开发实战 - 示例小程序	
+</view>
+<template name="classnav">
+	<view class="weui-media-box weui-media-box_text" aria-role="option">
+		<navigator class="weui-media-box__title" url="{{index}}">{{name}}</navigator>
+	</view>
+</template>
+<view class="weui-panel weui-panel_access">
+  <view class="weui-panel__hd">第二章：微信小程序组件介绍及使用</view>
+			<view class="weui-panel__bd">
+        <block wx:for="{{items}}" wx:for-item="item" wx:key="index">
+          <template is="classnav" data="{{...item}}"/>
+        </block>
+			</view>
+</view>
