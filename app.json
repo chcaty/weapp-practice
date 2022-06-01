@@ -4,7 +4,8 @@
     "pages/2.1/index",
     "pages/2.2/index",
     "pages/2.3/index",
-    "pages/2.4_2.5/index"
+    "pages/2.4_2.5/index",
+    "pages/2.6_2.7/index"
   ],
   "window": {
     "backgroundTextStyle": "light",
@@ -13,5 +14,8 @@
     "navigationBarTextStyle": "black"
   },
   "style": "v2",
-  "sitemapLocation": "sitemap.json"
+  "sitemapLocation": "sitemap.json",
+  "useExtendedLib": {
+    "weui": true
+  }
 }

@@ -1,0 +1,23 @@
+{
+  "name": "miniprogram",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/chcaty/miniprogram.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/chcaty/miniprogram/issues"
+  },
+  "homepage": "https://github.com/chcaty/miniprogram#readme",
+  "dependencies": {
+    "miniprogram-slide-view": "^0.0.4"
+  }
+}

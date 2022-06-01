@@ -22,3 +22,26 @@
   margin-top:50px;
   padding: 10px 0 10px;
 }
+.page-section {
+  padding: 0 50rpx 60rpx;
+  width: 650rpx;
+}
+.page-section:last-child {
+  margin-bottom: 0;
+}
+.page-section-title {
+  font-size: 28rpx;
+  color: #888;
+  margin: 40rpx 0 20rpx;
+}
+.btn-area {
+  box-sizing: border-box;
+  width: auto;
+  padding: 30rpx 0 30rpx;
+}
+.btn-area button {
+  margin-top: 20rpx;
+}
+.btn-area:first-child {
+  margin-top: 0;
+}

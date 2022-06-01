@@ -1,0 +1,6 @@
+{
+  "usingComponents": {
+    "slide-view": "miniprogram-slide-view",
+    "mp-slideview": "weui-miniprogram/slideview/slideview"
+  }
+}
