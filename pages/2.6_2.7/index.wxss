@@ -60,8 +60,3 @@ movable-area {
   color: #fff;
   width: 150rpx; 
 }
-
-/* 左侧删除3 */
-.slideViewClass{}
-
-.widget {}
