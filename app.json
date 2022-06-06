@@ -8,12 +8,13 @@
     "pages/2.6_2.7/index",
     "pages/2.6_2.7/render-wxml/index",
     "pages/2.8_2.9/index",
-    "pages/2.10/index"
+    "pages/2.10/index",
+    "pages/vtabs/index"
   ],
   "window": {
     "backgroundTextStyle": "light",
     "navigationBarBackgroundColor": "#fff",
-    "navigationBarTitleText": "Weixin",
+    "navigationBarTitleText": "微信小程序全站开发实践",
     "navigationBarTextStyle": "black"
   },
   "style": "v2",

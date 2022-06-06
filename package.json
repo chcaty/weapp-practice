@@ -18,6 +18,8 @@
   },
   "homepage": "https://github.com/chcaty/miniprogram#readme",
   "dependencies": {
+    "@miniprogram-component-plus/vtabs": "^1.0.0",
+    "@miniprogram-component-plus/vtabs-content": "^1.0.0",
     "miniprogram-recycle-view": "^0.1.5",
     "miniprogram-slide-view": "^0.0.4",
     "wxml-to-canvas": "^1.1.1"

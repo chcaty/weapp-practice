@@ -9,6 +9,7 @@ Page({
       {index:"/pages/2.6_2.7/index",name:"可移动容器及可移动区域"},
       {index:"/pages/2.6_2.7/render-wxml/index",name:"weui-canvas"},
       {index:"/pages/2.8_2.9/index",name:"scroll-view"},
+      {index:"/pages/vtabs/index",name:"vtabs"},
       {index:"/pages/2.10/index",name:"滚动选择器"},
     ]
   }
