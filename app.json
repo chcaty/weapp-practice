@@ -9,7 +9,10 @@
     "pages/2.6_2.7/render-wxml/index",
     "pages/2.8_2.9/index",
     "pages/2.10/index",
-    "pages/vtabs/index"
+    "pages/vtabs/index",
+    "pages/2.12/index",
+    "pages/2.13/index",
+    "pages/2.14/index"
   ],
   "window": {
     "backgroundTextStyle": "light",
