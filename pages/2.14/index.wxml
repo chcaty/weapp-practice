@@ -1,2 +1,76 @@
 <!--pages/2.14/index.wxml-->
-<text>pages/2.14/index.wxml</text>
+<view class="page-section">
+  <text class="page-section__title">use image</text>
+  <scroll-view class="cardbox">
+    <button wx:if="{{item.live.play_urls}}" class="card" hover-class='none' wx:for="{{content}}" wx:key="*this" bindtap="gotoLive" data-url="{{item.live.play_urls.hdl.ORIGIN}}" data-ava="{{item.live.user_info.avatar}}" data-name="{{item.live.user_info.name}}" data-audience="{{item.live.audience_num}}" data-lid="{{item.live.id}}" data-cacheprepic="{{item.live.pic}}" data-prepic="{{item.live.pic_320}}" data-share_desc="{{item.live.share_info.wechat_contact.cn.text}}" style="position: relative;">
+      <view class="image_card">
+        <image class="showpic" mode="aspectFill" src="{{item.live.pic_320}}" lazy-load="{{true}}" />
+        <view class="cover" />
+        <text class="audience">{{item.live.audience_num}}观众</text>
+      </view>
+      <view class="user_card" catchtap="gotoHome" data-uid="{{item.live.user_info.id}}">
+        <view class="avabox">
+          <image src="{{item.live.user_info.avatar}}" lazy-load="{{true}}" class="ava" data-uid="{{item.live.user_info.id}}" />
+          <image class="vip" wx:if="{{item.live.vip}}" lazy-load="{{true}}" src="http://img08.oneniceapp.com/upload/resource/9e7ca7ece11143b49fc952cfb2520e43.png" />
+        </view>
+        <text class="user_name">{{item.live.user_info.name}}</text>
+      </view>
+    </button>
+
+    <button wx:if="{{item.live.playback_urls}}" class="card" open-type='getUserInfo' bindtap="gotoPlayback" wx:for="{{content}}" data-url="{{item.live.playback_urls.hls.ORIGIN}}" wx:key="*this">
+      <view class="image_card">
+        <image className="showpic" mode="aspectFill" src="{{item.live.pic_320}}" lazy-load="{{true}}" />
+        <view class="cover" />
+        <text class="audience">{{item.live.audience_num}}观众</text>
+        <image class="back" lazy-load="{{true}}" src="http://img08.oneniceapp.com/upload/resource/002bdceaa732f300e33ab8b2cb84dd17.png" />
+      </view>
+      <view class="user_card">
+        <view class="avabox">
+          <image src="{{item.live.user_info.avatar}}" class="ava" lazy-load="{{true}}" />
+          <image class="vip" wx:if="{{item.live.vip}}" lazy-load="{{true}}" src="http://img08.oneniceapp.com/upload/resource/9e7ca7ece11143b49fc952cfb2520e43.png" />
+        </view>
+        <text class="user_name">{{item.live.user_info.name}}</text>
+      </view>
+    </button>
+  </scroll-view>
+</view>
+
+<view class="page-section">
+  <text class="page-section__title">use mina-lazy-image</text>
+  <scroll-view class="cardbox">
+    <button wx:if="{{item.live.play_urls}}" class="card" hover-class='none' wx:for="{{content}}" wx:key="*this" bindtap="gotoLive" data-url="{{item.live.play_urls.hdl.ORIGIN}}" data-ava="{{item.live.user_info.avatar}}" data-name="{{item.live.user_info.name}}" data-audience="{{item.live.audience_num}}" data-lid="{{item.live.id}}" data-cacheprepic="{{item.live.pic}}" data-prepic="{{item.live.pic_320}}" data-share_desc="{{item.live.share_info.wechat_contact.cn.text}}" style="position: relative;">
+      <view class="image_card">
+        <mina-lazy-image mode="aspectFill" src="{{item.live.pic_320}}" />
+        <view class="cover" />
+        <text class="audience">{{item.live.audience_num}}观众</text>
+      </view>
+      <view class="user_card" catchtap="gotoHome" data-uid="{{item.live.user_info.id}}">
+        <view class="avabox">
+          <mina-lazy-image src="{{item.live.user_info.avatar}}" data-uid="{{item.live.user_info.id}}" />
+          <image class="vip" wx:if="{{item.live.vip}}" lazy-load="{{true}}" src="http://img08.oneniceapp.com/upload/resource/9e7ca7ece11143b49fc952cfb2520e43.png" />
+        </view>
+        <text class="user_name">{{item.live.user_info.name}}</text>
+      </view>
+    </button>
+
+    <button wx:if="{{item.live.playback_urls}}" class="card" open-type='getUserInfo' bindtap="gotoPlayback" wx:for="{{content}}" data-url="{{item.live.playback_urls.hls.ORIGIN}}" wx:key="*this">
+      <view class="image_card">
+        <mina-lazy-image mode="aspectFill" src="{{item.live.pic_320}}" />
+        <view class="cover" />
+        <text class="audience">{{item.live.audience_num}}观众</text>
+        <image class="back" lazy-load="{{true}}" src="http://img08.oneniceapp.com/upload/resource/002bdceaa732f300e33ab8b2cb84dd17.png" />
+      </view>
+      <view class="user_card">
+        <view class="avabox">
+          <mina-lazy-image src="{{item.live.user_info.avatar}}" />
+          <image class="vip" wx:if="{{item.live.vip}}" lazy-load="{{true}}" src="http://img08.oneniceapp.com/upload/resource/9e7ca7ece11143b49fc952cfb2520e43.png" />
+        </view>
+        <text class="user_name">{{item.live.user_info.name}}</text>
+      </view>
+    </button>
+  </scroll-view>
+</view>
+
+<!-- 背景图 -->
+<view class="container">
+</view>

@@ -17,6 +17,7 @@ Page({
           { index: "/pages/2.12/index", name: "滑动选择器", content: "如何wsxz自定义一个属相的slider？" },
           { index: "/pages/2.13/index", name: "页面链接组件", content: "如何自定义一个导航栏？" },
           { index: "/pages/2.14/index", name: "image媒体组件", content: "如何实现图片的懒加载" },
+          { index: "/pages/2.14/cut/index", name: "image-cropper", content: "如何实现图片的裁剪" },
         ]
       }
     ],

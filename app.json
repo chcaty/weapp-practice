@@ -12,7 +12,8 @@
     "pages/vtabs/index",
     "pages/2.12/index",
     "pages/2.13/index",
-    "pages/2.14/index"
+    "pages/2.14/index",
+    "pages/2.14/cut/index"
   ],
   "window": {
     "backgroundTextStyle": "light",
