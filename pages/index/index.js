@@ -18,6 +18,8 @@ Page({
           { index: "/pages/2.13/index", name: "页面链接组件", content: "如何自定义一个导航栏？" },
           { index: "/pages/2.14/index", name: "image媒体组件", content: "如何实现图片的懒加载" },
           { index: "/pages/2.14/cut/index", name: "image-cropper", content: "如何实现图片的裁剪" },
+          { index: "/pages/2.16/index", name: "live-plusher媒体组件", content: "如何实现直播间" },
+          { index: "/pages/2.16/player/index", name: "live-player媒体组件", content: "如何实现直播间" },
         ]
       }
     ],
