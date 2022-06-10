@@ -1,0 +1,4 @@
+<!--miniprogram/pages/2.18/web-view/index.wxml-->
+<web-view bindmessage="onReceivedMessage" src="{{url}}" style="z-index:-1"></web-view>
+
+<button style="position:fixed;right:50rpx;bottom:50rpx;">预约登记</button>

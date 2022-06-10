@@ -15,7 +15,9 @@
     "pages/2.14/index",
     "pages/2.14/cut/index",
     "pages/2.16/index",
-    "pages/2.16/player/index"
+    "pages/2.16/player/index",
+    "pages/2.22/index",
+    "pages/2.22/web-view/index"
   ],
   "window": {
     "backgroundTextStyle": "light",
