@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title><%= title %></title>
+  <script type="text/javascript" src="/static/js/jweixin-1.6.0.js"></script>
+  <script type="text/javascript" src="/static/js/jquery.js"></script>
+  <script type="text/javascript" src="/static/js/jquery.cookie.js"></script>
+  <style>
+    * {
+      font-size: 24px;
+    }
+  </style>
+</head>
+
+<body>
+  <h1><%= title %></h1>
+  <p>EJS Welcome to <%= title %></p>
+  <input id="name" value="ly" /><br /><br />
+  <input id="send-btn" type="button" value="send"></input>
+  <p id="output"></p>
+  <input id="share-btn" type="button" value="share" style="width: 100px;height:30px;border:solid 1px grey;"></input>
+  <script type="text/javascript">
+    
+
+    // 当处于小程序内
+    document.addEventListener('intoMiniprogram', () => {
+      retrieveHomeData()
+    }, false)
+
+    // 检查是不是位于小程序内
+    let isInMiniprogram = false
+    function changeIsInMiniprogramState() {
+      if (!isInMiniprogram) {
+        isInMiniprogram = true
+        $.cookie("isInMiniprogram", true)
+        document.dispatchEvent(new Event('intoMiniprogram'))
+        console.log('isInMiniprogram', isInMiniprogram);
+      }
+    }
+    if (/token=\d+/.test(window.location.search)) {
+      changeIsInMiniprogramState()
+    } else if ( /miniProgram/.test(navigator.userAgent) ){
+      changeIsInMiniprogramState()
+    }else if (($.cookie("isInMiniprogram") || '') == 'true') {
+      changeIsInMiniprogramState()
+    } else {
+      function onWeixinJSBridgeReady() {
+        if (window.__wxjs_environment === 'miniprogram'){
+          changeIsInMiniprogramState()
+        }
+      }
+      if (!window.WeixinJSBridge || !WeixinJSBridge.invoke) {
+        document.addEventListener('WeixinJSBridgeReady', onWeixinJSBridgeReady, false)
+      } else {
+        onWeixinJSBridgeReady()
+      }
+    }
+    // retrieveHomeData()
+
+    // 在小程序中，模拟调用接口
+    function retrieveHomeData() {
+      $('#send-btn').bind('click', (e) => {
+        let name = $('#name').val()
+        console.log('name', name);
+        let authorization = $.cookie("Authorization") || ''
+        $.ajax({
+          url: `http://localhost:3000/user/home?name=${name}`,
+          method: 'get',
+          headers: {
+            'Authorization': authorization
+          },
+          success(res) {
+            console.log('res', res)
+            $("#output").text(JSON.stringify(res))
+          },
+          fail(err) {
+            $("#output").text(err)
+          }
+        })
+      })
+      $('#share-btn').bind('click', (e) => {
+        console.log('share btn click')
+        wx.miniProgram.postMessage({
+          data: JSON.stringify({
+            action: 'share',
+            title: window.document.title
+          })
+        });
+        // wx.miniProgram.navigateBack()
+      })
+    }
+  </script>
+  <script type="text/javascript" src="/static/js/vconsole.min.js"></script>
+  <script>
+    // 初始化
+    var vConsole = new VConsole();
+    console.log('Hello world');
+  </script>
+</body>
+</html>

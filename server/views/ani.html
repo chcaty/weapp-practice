@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body{margin:auto;
+            overflow: hidden;
+        }
+    </style>
+</head>
+<body>
+    <div id='webgl'></div>
+    <script src="../libs/three.js"></script>
+    <script src="../libs/dat.gui.js"></script>
+    <script>
+        var renderer=new THREE.WebGLRenderer();
+        var scene=new THREE.Scene();
+        renderer.setSize(window.innerWidth,window.innerHeight);
+        renderer.setClearColor(new THREE.Color(0xffffff))
+        
+        var camera=new THREE.PerspectiveCamera(60,window.innerWidth/window.innerHeight,0.1,1000);
+        camera.position.set(0,30,60)
+       camera.lookAt(scene.position)
+ 
+       var planeGeometry=new THREE.PlaneGeometry(50,50)
+       var material=new THREE.MeshLambertMaterial({color:new THREE.Color(0x00ff00)});
+       var plane=new THREE.Mesh(planeGeometry,material)
+       plane.rotation.x=-Math.PI*0.5;
+       scene.add(plane)
+ 
+        var cube1=new THREE.BoxGeometry(15,15,15)//改变后的几何体
+        var cube2=new THREE.BoxGeometry(25,25,25);//改变后的几何体
+     
+       var boxGeometry=new THREE.BoxGeometry(20,20,20)
+       boxGeometry.morphTargets[0]={name:'cube1',vertices:cube1.vertices}
+       boxGeometry.morphTargets[1]={name:'cube2',vertices:cube2.vertices}
+       boxGeometry.computeMorphNormals()
+       var material=new THREE.MeshLambertMaterial({color:0xff0000,morphTargets:true})
+      var box=new THREE.Mesh(boxGeometry,material);
+        box.position.set(0,10,0)
+       scene.add(box)
+ 
+ 
+        var control=new function(){
+            this.cube1=0.01
+            this.cube2=0.01;
+            this.update=function(){
+                box.morphTargetInfluences[0]=control.cube1
+                box.morphTargetInfluences[1]=control.cube2
+            }
+        }
+ 
+        var gui=new dat.GUI()
+        gui.add(control,'cube1',0,1).onChange(control.update)
+        gui.add(control,'cube2',0,1).onChange(control.update)
+ 
+        var spotlight=new THREE.SpotLight(0xffffff);
+        spotlight.position.set(0,40,15)
+        var spotlight1=new THREE.SpotLight(0xffffff)
+        spotlight1.position.set(0,40,25)
+ 
+        scene.add(spotlight1)
+        scene.add(spotlight)
+ 
+        document.getElementById('webgl').appendChild(renderer.domElement);
+ 
+        requestAnimationFrame(render)
+        function render(){
+            renderer.render(scene,camera)
+            requestAnimationFrame(render)
+        }
+ 
+ 
+    </script>
+</body>
+</html>
+
