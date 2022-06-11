@@ -34,8 +34,7 @@ onReceivedMessage(e){
    */
   onLoad: function (options) {
     let token = getApp().globalData.token
-    let url = `http://localhost:3000/user/web-view?token=${token}`
-    // let url = `http://192.168.31.68:3000/user/web-view?token=${token}`
+    let url = `http://localhost:30000/user/web-view?token=${token}`
     console.log('token', token);
     this.setData({
       url
