@@ -1,0 +1,9 @@
+<!--miniprogram/pages/2.30/index.wxml-->
+<block wx:for="{{_canvas}}" wx:for-item="item" wx:key="index">
+  <template is="canvasTemplate" data="{{...item}}" />
+</block>
+
+<template name="canvasTemplate">
+  <view class="weui-panel__hd">{{name}}</view>
+  <canvas type="webgl" id="{{canvasId}}"></canvas>
+</template>
