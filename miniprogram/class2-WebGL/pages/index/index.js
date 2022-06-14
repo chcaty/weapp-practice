@@ -5,9 +5,9 @@ Page({
     {
       title: "第二章：WebGL组件介绍及使用",
       items: [
-        { index: "/pages/2.30/index", name: "小程序canvas绘制3d对象", content: "如何在小程序中展示3D模型" },
-        { index: "/pages/2.30/cube/index", name: "progress组件", content: "如何自定义实现一个环形进度条？" },
-        { index: "/pages/2.30/threejs/index", name: "rich-text组件", content: "如何单击预览rich-text中的图片并保存？" },
+        { index: "/pages/2.30/index", name: "小程序canvas绘制3D对象", content: "如何在小程序中展示3D模型？" },
+        { index: "/pages/2.30/cube/index", name: "小程序3D对象自由旋转", content: "" },
+        { index: "/pages/2.30/threejs/index", name: "threejs-miniprogram绘制3D对象", content: "如何用threejs展示3D模型？" },
       ]
     },
     get array() {

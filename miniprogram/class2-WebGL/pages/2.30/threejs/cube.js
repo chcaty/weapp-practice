@@ -1,18 +1,32 @@
-// pages/2.30/cube/index.js
+// pages/2.30/threejs/cube.js
+import { createScopedThreejs } from 'threejs-miniprogram'
+
+const { renderCube } = require('../../../lib/test-cases/cube')
+
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    canvasId: null
+
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad(options) {
+  onLoad() {
+    wx.createSelectorQuery()
+    .select('#webg2')
+    .node()
+    .exec((res) => {
+      const canvas = res[0].node
+      this.canvas = canvas
+      const THREE = createScopedThreejs(canvas)
 
+      renderCube(canvas, THREE)
+      // console.log(renderOrbit);
+    })
   },
 
   /**

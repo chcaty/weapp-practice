@@ -1,18 +1,24 @@
 // pages/2.30/threejs/index.js
-Page({
 
+const app = getApp()
+
+Page({
   /**
    * 页面的初始数据
    */
   data: {
-
+    _canvas: [
+      { name: "球", path: "/pages/2.30/threejs/sphere" },
+      { name: "单个正方体", canvasId: "/pages/2.30/threejs/cube" },
+      { name: "多个正方体", canvasId: "/pages/2.30/threejs/cubes" },
+      { name: "模型", canvasId: "/pages/2.30/threejs/model" },
+    ]
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad(options) {
-
+  onLoad() {
   },
 
   /**

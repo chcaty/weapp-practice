@@ -1,2 +1,15 @@
 <!--pages/2.30/threejs/index.wxml-->
-<text>pages/2.30/threejs/index.wxml</text>
+<view class="weui-panel weui-panel_access">
+  <view class="weui-panel__bd">
+    <block wx:for="{{_canvas}}" wx:for-item="item" wx:key="index">
+      <template is="classnav" data="{{...item}}" />
+    </block>
+  </view>
+</view>
+<template name="classnav">
+  <view class="weui-media-box weui-media-box_text" aria-role="option">
+    <navigator url="{{path}}">
+      <text class="weui-media-box__title">{{name}}</text>
+    </navigator>
+  </view>
+</template>

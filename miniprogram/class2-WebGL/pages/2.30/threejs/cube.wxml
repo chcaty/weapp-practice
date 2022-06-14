@@ -1,0 +1,2 @@
+<!--pages/2.30/threejs/cube.wxml-->
+<canvas type="webgl" id="webg2" style="width: 100%; height: 450px;" bindtouchstart="touchStart" bindtouchmove="touchMove" bindtouchend="touchEnd"></canvas>

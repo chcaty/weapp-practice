@@ -3,12 +3,16 @@
     "pages/index/index",
     "pages/2.30/index",
     "pages/2.30/threejs/index",
-    "pages/2.30/cube/index"
+    "pages/2.30/cube/index",
+    "pages/2.30/threejs/cube",
+    "pages/2.30/threejs/sphere",
+    "pages/2.30/threejs/cubes",
+    "pages/2.30/threejs/model"
   ],
   "window": {
     "backgroundTextStyle": "light",
     "navigationBarBackgroundColor": "#fff",
-    "navigationBarTitleText": "Weixin",
+    "navigationBarTitleText": "微信小程序全站开发实践",
     "navigationBarTextStyle": "black"
   },
   "style": "v2",

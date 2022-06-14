@@ -1,1 +1,10 @@
 /* pages/2.30/threejs/index.wxss */
+.intro {
+  margin: 30px;
+  text-align: center;
+}
+
+.btn {
+  width: 60rpx;
+  height: auto;
+}

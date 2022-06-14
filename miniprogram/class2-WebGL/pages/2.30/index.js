@@ -6,7 +6,6 @@ import drawCube from './draw-cube'
 import drawTextureCube from './draw-texture-cube'
 
 Page({
-
   /**
    * 页面的初始数据
    */

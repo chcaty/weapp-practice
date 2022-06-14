@@ -1,0 +1,8 @@
+<!--pages/2.30/threejs/model.wxml-->
+<view style="display:inline-block;">
+  <button size="mini" type="primary" class="btn" data-action="Walking" bindtap="play">走</button>
+  <button size="mini" type="primary" class="btn" data-action="WalkJump" bindtap="play">跳</button>
+  <button size="mini" type="primary" class="btn" data-action="Sitting" bindtap="play">坐</button>
+  <button size="mini" type="primary" class="btn" data-action="Standing" bindtap="play">站</button>
+</view>
+<canvas type="webgl" id="webg4" style="width: 100%; height: 450px;" bindtouchstart="touchStart" bindtouchmove="touchMove" bindtouchend="touchEnd"></canvas>
