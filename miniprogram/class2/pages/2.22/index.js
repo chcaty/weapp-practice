@@ -1,14 +1,13 @@
-// miniprogram/pages/2.18/index.js
-Page({
+// miniprogram/pages/2.22/index.js
 
+Page({
   /**
    * 页面的初始数据
    */
   data: {
-
   },
 
-  onShareAppMessage: function (options) {
+  onShareAppMessage: function () {
     console.log('分享')
     return {
       title: '登陆',
@@ -27,7 +26,7 @@ Page({
     const requestLoginApi = (code) => {
       //发起网络请求
       wx.request({
-        url: 'http://localhost:30000/user/wexin-login2',
+        url: `${getApp().globalData.apiUrl}/user/wexin-login2`,
         method: 'POST',
         header: {
           'content-type': 'application/json'
@@ -91,7 +90,7 @@ Page({
         if (res0.code) {
           //发起网络请求
           wx.request({
-            url: 'http://localhost:30000/user/wexin-login2',
+            url: `${getApp().globalData.apiUrl}/user/wexin-login2`,
             method: 'POST',
             header: {
               'content-type': 'application/json'

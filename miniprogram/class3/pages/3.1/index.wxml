@@ -1,0 +1,10 @@
+<!--pages/3.1/index.wxml-->
+<view class="page-section">
+  <text class="page-section__title">3.1 接口调用及返回</text>
+  <button bindtap="startOneRequest" type="primary">发起</button>
+</view>
+
+<view class="page-section">
+  <text class="page-section__title">3.2 登录请求</text>
+  <button bindgetuserinfo="login" open-type="getUserInfo" type="primary">发起</button>
+</view>

@@ -32,9 +32,9 @@ Page({
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function (options) {
+  onLoad: function () {
     let token = getApp().globalData.token
-    let url = `http://localhost:30000/user/web-view?token=${token}`
+    let url = `${getApp().globalData.apiUrl}/user/web-view?token=${token}`
     console.log('token', token);
     this.setData({
       url

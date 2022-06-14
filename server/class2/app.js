@@ -202,8 +202,8 @@ router.all('/web-view', async function (ctx) {
 });
 
 // 小程序的机要信息
-const miniProgramAppId = 'wxc3db312ddf9bcb01'
-const miniProgramAppSecret = '6bb4f303f55a5893fac810e2ab56faa1'
+const miniProgramAppId = 'wx06fa4c619b9835ff'
+const miniProgramAppSecret = '220879499d4896b76d23a7c6bd8724de'
 const weixinAuth = new WeixinAuth(miniProgramAppId, miniProgramAppSecret);
 
 // 这是第一次小程序登陆法

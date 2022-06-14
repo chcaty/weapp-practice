@@ -22,12 +22,6 @@ Page({
         { index: "/pages/2.16/player/index", name: "live-player媒体组件", content: "如何实现直播间" },
         { index: "/pages/2.22/index", name: "web-view", content: "如何实现免审核发布新的功能页面" },
       ]
-    },
-    get array() {
-      return this._array;
-    },
-    set array(value) {
-      this._array = value;
-    },
+    }
   }
 })
