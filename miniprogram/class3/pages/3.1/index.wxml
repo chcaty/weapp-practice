@@ -5,6 +5,43 @@
 </view>
 
 <view class="page-section">
-  <text class="page-section__title">3.2 登录请求</text>
-  <button bindgetuserinfo="login" open-type="getUserInfo" type="primary">发起</button>
+  <text class="page-section__title">3.2 在登陆之后调用接口</text>
+  <view class="btn-area">
+    <button bindgetuserinfo="startLoginAndRequest3" open-type="getUserInfo" type="primary">先登陆后请求1</button>
+    <button bindgetuserinfo="startLoginAndRequestOther" open-type="getUserInfo" type="primary">先登陆后请求2</button>
+    <button bindgetuserinfo="startLoginAndRequest4" open-type="getUserInfo" type="primary">先登陆后请求(use module)</button>
+    <navigator url="./other/index">
+      <text class="weui-media-box__title">在其他页面调用封装好的登录方法</text>
+    </navigator>
+  </view>
+</view>
+
+<view class="page-section">
+  <text class="page-section__title">3.4 Promise</text>
+  <view class="btn-area">
+    <button bindtap="any" type="primary">any</button>
+    <button bindtap="all" type="primary">all</button>
+    <button bindtap="race" type="primary">race</button>
+    <button bindgetuserinfo="startLoginAndRequestWithPromise" open-type="getUserInfo" type="primary">先登陆后请求(promise)</button>
+    <button bindgetuserinfo="startLoginAndRequestWithPromise2" open-type="getUserInfo" type="primary">先登陆后请求2(promise)</button>
+    <button bindgetuserinfo="startLoginAndRequestWithPromise3" open-type="getUserInfo" type="primary">先登陆后请求3(promise)</button>
+  </view>
+</view>
+
+<view class="page-section">
+  <text class="page-section__title">3.6 模块化</text>
+  <view class="btn-area">
+    <button bindtap="requestOneHomeApi" type="primary">请求user/home接口</button>
+  </view>
+</view>
+
+<view class="page-section">
+  <text class="page-section__title">3.7 接口调用融合登陆</text>
+  <view class="btn-area">
+    <button bindtap="showLoginPanel" type="primary">手动开启登陆</button>
+    <button bindtap="requestHomeApi" type="primary">请求user/home接口</button>
+    <button bindtap="requestHomeApiByReq4" type="primary">请求接口by req4</button>
+    <view style="height:20px;"></view>
+    <LoginPanel show="{{showLoginPanel}}"></LoginPanel>
+  </view>
 </view>

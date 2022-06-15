@@ -1,7 +1,9 @@
 {
   "pages": [
     "pages/index/index",
-    "pages/3.1/index"
+    "pages/3.1/index",
+    "pages/3.1/other/index",
+    "components/login/index"
   ],
   "window": {
     "backgroundTextStyle": "light",

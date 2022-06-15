@@ -1,0 +1,14 @@
+<!--pages/3.1/other/index.wxml-->
+<!--miniprogram/pages/3.1/index.wxml-->
+<view class="page-head">
+	<text class="page-head__title">wx.request</text>
+	<text class="page-head__desc">网络请求</text>
+</view>
+
+<view class="page-section">
+	<text class="page-section__title">3.2 在登陆之后调用接口</text>
+	<view class="btn-area">
+    <button bindgetuserinfo="startLoginAndRequest4" open-type="getUserInfo" type="primary">先登陆后请求(use module)</button>
+		<navigator open-type="navigateBack">back</navigator>
+	</view>
+</view>

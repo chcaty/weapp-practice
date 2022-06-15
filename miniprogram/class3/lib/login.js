@@ -9,7 +9,7 @@ function loginWithCallback(e, cb) {
   const requestLoginApi = (code) => {
     //发起网络请求
     wx.request({
-      url: 'http://localhost:3000/user/wexin-login2',
+      url: `${getApp().globalData.apiUrl}/user/wexin-login2`,
       method: 'POST',
       header: {
         'content-type': 'application/json'
@@ -82,7 +82,7 @@ function loginWithCallback2(e) {
     const requestLoginApi = (code) => {
       //发起网络请求
       wx.request({
-        url: 'http://localhost:3000/user/wexin-login2',
+        url: `${getApp().globalData.apiUrl}/user/wexin-login2`,
         method: 'POST',
         header: {
           'content-type': 'application/json'
@@ -139,9 +139,7 @@ function loginWithCallback2(e) {
         login()
       }
     })
-
   })
-
 }
 
 function loginWithCallback3(e) {
@@ -165,7 +163,7 @@ function loginWithCallback3(e) {
       })
       let code = res1.code
       let res = await app.wxp.request({
-        url: 'http://localhost:3000/user/wexin-login2',
+        url: `${getApp().globalData.apiUrl}/user/wexin-login2`,
         method: 'POST',
         header: {
           'content-type': 'application/json'
@@ -187,9 +185,7 @@ function loginWithCallback3(e) {
       title: '登陆成功了',
     })
     resolve(token)
-
   })
-
 }
 
-export default loginWithCallback3
+export { loginWithCallback, loginWithCallback2, loginWithCallback3 }
