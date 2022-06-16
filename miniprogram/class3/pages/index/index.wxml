@@ -9,7 +9,7 @@
 </view>
 <template name="classnav">
   <view class="weui-media-box weui-media-box_text" aria-role="option">
-    <navigator url="{{index}}">
+    <navigator url="{{index}}" open-type="{{type}}">
       <text class="weui-media-box__title">{{name}}</text>
       <view class="weui-media-box__desc">{{content}}</view>
     </navigator>

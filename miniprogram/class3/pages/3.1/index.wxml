@@ -41,7 +41,21 @@
     <button bindtap="showLoginPanel" type="primary">手动开启登陆</button>
     <button bindtap="requestHomeApi" type="primary">请求user/home接口</button>
     <button bindtap="requestHomeApiByReq4" type="primary">请求接口by req4</button>
-    <view style="height:20px;"></view>
     <LoginPanel show="{{showLoginPanel}}"></LoginPanel>
   </view>
+</view>
+
+<view class="page-section">
+  <text class="page-section__title">3.8 Event</text>
+  <view class="btn-area">
+    <button bindtap="testEvent" type="primary">test event</button>
+  </view>
+</view>
+
+<view class="page-section">
+	<text class="page-section__title">3.9 request3</text>
+	<view class="btn-area">
+		<button bindtap="testRequest3" type="primary">testRequest3</button>
+		<button bindtap="requestHomeApiByReq4" type="primary">test abort</button>
+	</view>
 </view>

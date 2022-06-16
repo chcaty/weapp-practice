@@ -1,0 +1,4 @@
+<!--pages/3.12/index3/index.wxml-->
+<text>pages/3.12/index3/index.wxml</text>
+<view>{{initData.a}}</view>
+<CustomTabBar index="2" bindpagenavigating="onPageNavigating"></CustomTabBar>

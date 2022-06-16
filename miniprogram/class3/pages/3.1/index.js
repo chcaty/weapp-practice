@@ -508,10 +508,22 @@ Page({
     })
     if (res3) console.log('res3', res3)
   },
-  
+
   showLoginPanel: async function () {
     this.setData({
       showLoginPanel: true
+    })
+  },
+
+  // 测试返回对象
+  requestHomeApiByReq4() {
+    getApp().wxp.request4({
+      url: `${getApp().globalData.apiUrl}/user/home`,
+      onReturnObject(rtn) {
+        rtn.abort()
+      }
+    }).catch(err => {
+      console.log(err);
     })
   },
 
@@ -554,18 +566,6 @@ Page({
       url: `${getApp().globalData.apiUrl}/user/home`,
     })
     if (res4) console.log('res4', res4)
-  },
-
-  // 测试返回对象
-  requestHomeApiByReq4() {
-    getApp().wxp.request4({
-      url: `${getApp().globalData.apiUrl}/user/home`,
-      onReturnObject(rtn) {
-        rtn.abort()
-      }
-    }).catch(err => {
-      console.log(err);
-    })
   },
 
   // 3.9
