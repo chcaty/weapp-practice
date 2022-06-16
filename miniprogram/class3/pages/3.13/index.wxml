@@ -1,0 +1,13 @@
+<!--pages/3.13/index.wxml-->
+<view class="page-head">
+	<text class="page-head__title">登录</text>
+</view>
+
+<view class="page-section">
+	<text class="page-section__title">Page扩展</text>
+	<view class="btn-area">
+		<button bindtap="extendPageTest" type="primary">testRequest3</button>
+	</view>
+</view>
+
+<LoginPanel show="{{showLoginPanel}}"></LoginPanel>

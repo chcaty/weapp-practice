@@ -8,7 +8,8 @@
     "pages/3-10/custom/index",
     "pages/3.12/index",
     "pages/3.12/index2/index",
-    "pages/3.12/index3/index"
+    "pages/3.12/index3/index",
+    "pages/3.13/index"
   ],
   "window": {
     "backgroundTextStyle": "light",
