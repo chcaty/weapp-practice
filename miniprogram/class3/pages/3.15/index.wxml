@@ -1,0 +1,10 @@
+<!--pages/3.15/index.wxml-->
+<view class="page-head">
+	<text class="page-head__title">微信连wifi</text>
+</view>
+
+<view class="page-section">
+	<view class="btn-area">
+		<button bindtap="startToConnect" type="primary">连接</button>
+	</view>
+</view>

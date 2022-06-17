@@ -9,7 +9,8 @@
     "pages/3.12/index",
     "pages/3.12/index2/index",
     "pages/3.12/index3/index",
-    "pages/3.13/index"
+    "pages/3.13/index",
+    "pages/3.15/index"
   ],
   "window": {
     "backgroundTextStyle": "light",
@@ -44,5 +45,10 @@
         "selectedIconPath": "components/custom-tab-bar/component-on.png"
       }
     ]
+  },
+  "permission": {
+    "scope.userLocation": {
+      "desc": "位置信息用途说明"
+    }
   }
 }
