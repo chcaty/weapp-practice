@@ -1,0 +1,10 @@
+<!--index.wxml-->
+<van-button bindtap="onTap" type="primary">按钮</van-button>
+
+<van-button bindtap="incressProgress" type="primary">progress</van-button>
+
+<van-circle value="{{progress}}" text="{{progress}}%" size="120" />
+
+<van-popup position="bottom" show="{{show}}" bind:close="onClose">
+  <van-area area-list="{{areaList}}" columns-placeholder="{{['请选择','请选择','请选择']}}" title="选择对应省市区" bind:confirm="onAreaConfirm" />
+</van-popup>
