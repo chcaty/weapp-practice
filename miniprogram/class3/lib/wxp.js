@@ -98,4 +98,22 @@ wxp.request4 = function (args) {
   })
 }
 
+// class4 用户登录
+wxp.request5 = function (args) {
+  let token = wx.getStorageSync('token')
+  if (token) {
+    if (!args.header) args.header = {}
+    args.header['Authorization'] = `Bearer ${token}`
+  }
+  return new Promise((resolve,reject) => {
+    let rtbObj = wx.requestWithCookie(
+      Object.assign(args,{
+        success:resolve,
+        fail:reject
+      })
+    )
+    if(args.onReturnObject) args.onReturnObject(rtnObj)
+  })
+}
+
 export default wxp

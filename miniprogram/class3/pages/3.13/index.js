@@ -10,11 +10,16 @@ Page({
 
   async extendPageTest(){
     this.hi('weapp')
-    // 使用request3
+    // 使用request4
     let res4 = await wx.wxp.request4({
       url: `${getApp().globalData.apiUrl}/user/home`,
     })
     if (res4) console.log('res4', res4)
+
+    let res5 = await wx.wxp.request5({
+      url: `${getApp().globalData.apiUrl}/user/home`,
+    })
+    if (res5) console.log('res5', res5)
   },
 
   /**

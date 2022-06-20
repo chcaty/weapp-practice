@@ -2,6 +2,7 @@
 require("./lib/extend-page")
 import wxp from './lib/wxp'
 import Event from './lib/event'
+import "weapp-cookie"
 
 App({
   wxp: (wx.wxp = wxp),
