@@ -9,6 +9,9 @@
   "author": "Caty",
   "license": "ISC",
   "dependencies": {
-    "@vant/weapp": "^1.10.3"
+    "@miniprogram-component-plus/vtabs": "^1.0.0",
+    "@miniprogram-component-plus/vtabs-content": "^1.0.0",
+    "@vant/weapp": "^1.10.3",
+    "miniprogram-api-promise": "^1.0.4"
   }
 }

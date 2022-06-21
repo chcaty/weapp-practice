@@ -46,7 +46,7 @@ CALL procInitBrand();
 -- 初始化基本商品表
 use practice;
 
-SET @arr := JSON_ARRAY("夏凉被","冬暖被","秋躺椅");
+-- SET @arr := JSON_ARRAY("夏凉被","冬暖被","秋躺椅");
 
 DROP PROCEDURE IF EXISTS procInitGoods;
 --设置$作为分隔符
@@ -55,9 +55,11 @@ CREATE PROCEDURE procInitGoods()
 BEGIN
     DECLARE i INT DEFAULT 0;
     DECLARE len int default 10;
+    SET @arr := JSON_ARRAY("夏凉被","冬暖被","秋躺椅");
+
     WHILE i<len DO	
 		select @brand_name := brand_name, @brand_id := id from brand order by rand() limit 1;
-		select @spu_no := concat( '', @brand_id, year(now()), uuid());
+		select @spu_no := concat( @brand_id, year(now()), uuid() );
         
         select @goods_name := concat( JSON_EXTRACT(@arr, CONCAT('$[', FLOOR(rand()*3), ']')), floor(rand()*1000) );
         select @start_price := 1000 * rand();
@@ -69,16 +71,11 @@ BEGIN
 END $
 CALL procInitGoods();
 
-SELECT * FROM goods;
+-- SELECT * FROM goods;
 
 
 -- 初始化商品描述表
 use practice;
-
-set @links := JSON_ARRAY("https://gitee.com/rixingyike/my-images/raw/master/yishulun/20200814230735.png",
-"https://gitee.com/rixingyike/my-images/raw/master/yishulun/20200814230726.png",
-"https://gitee.com/rixingyike/my-images/raw/master/yishulun/20200814230740.png");
-set @links_count := json_length(@links);
 
 drop procedure if exists procInitGoodsInfo; 
 delimiter $
@@ -94,31 +91,36 @@ begin
     
     declare list_cursor cursor for select id, goods_name from goods; 
     declare continue handler for not found set flag=1;
+
+    set @links := JSON_ARRAY("https://cloud-1252822131.cos.ap-beijing.myqcloud.com/img/20200820221945.png",
+    "https://cloud-1252822131.cos.ap-beijing.myqcloud.com/img/20200820222013.png",
+    "https://cloud-1252822131.cos.ap-beijing.myqcloud.com/img/20200820222033.png");
+    set @links_count := json_length(@links);
     
     open list_cursor;  # 打开游标
-        fetch list_cursor into goods_id,str_goods_name;
-        select goods_id,str_goods_name;
-        while (flag <> 1) do
-			select goods_id;
-            set j=0;
-			while (j<@links_count) do
-				select j;
-                set content = JSON_EXTRACT(@links, '$[1]');
-                set content = replace(content,'"','');
-                select content;
-                insert into goods_info(goods_id,kind,content,createdAt,updatedAt) values(goods_id,cover_image_kind,content,now(),now());
-                set j = j+1;
-            end while;
-            set content = concat(replace(str_goods_name,'"',''),"商品描述文本");
-            -- select content;
-            insert into goods_info(goods_id,kind,content,createdAt,updatedAt) values(goods_id,content_describe_kind,content,now(),now());
-            
-            fetch list_cursor into goods_id,str_goods_name;
+    fetch list_cursor into goods_id,str_goods_name;
+    while (flag <> 1) do
+        select goods_id;
+        set j=0;
+        while (j<@links_count) do
+            select j;
+            set content = JSON_EXTRACT(@links, '$[1]');
+            set content = replace(content,'"','');
+            select content;
+            insert into goods_info(goods_id,kind,content,createdAt,updatedAt) values(goods_id,cover_image_kind,content,now(),now());
+            set j = j+1;
         end while;
+        set content = concat(replace(str_goods_name,'"',''),"商品描述文本");
+        -- select content;
+        insert into goods_info(goods_id,kind,content,createdAt,updatedAt) values(goods_id,content_describe_kind,content,now(),now());
+        
+        fetch list_cursor into goods_id,str_goods_name;
+    end while;
     close list_cursor;
 end $
 delimiter ;
 call procInitGoodsInfo();
+
 
 -- 初始化规格表
 use practice;
@@ -183,14 +185,10 @@ begin
     close goods_list_cursor;
     
     call procInitGoodsSku();
-    
-    -- rollback;
-	
     commit;
 end $
 
 call procInitAttrKeyValues();
-
 
 -- 初始化sku表
 use practice;
