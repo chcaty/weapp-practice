@@ -34,8 +34,7 @@ router.use(
     // Logon interface does not require authentication
     path: [
       "/user/login",
-      "/user/wexin-login1",
-      "/user/wexin-login2",
+      "/user/weixin-login",
       "/user/web-view",
     ],
   })
@@ -132,29 +131,9 @@ const weixinAuth = new WeixinAuth(
   config.miniProgram.appSecret
 );
 
-// 这是第一次小程序登陆法
-router.post("/wexin-login1", async (ctx) => {
-  let { code } = ctx.request.body;
-
-  const token = await weixinAuth.getAccessToken(code);
-  // const accessToken = token.data.access_token;
-  const openid = token.data.openid;
-
-  // const userinfo = await weixinAuth.getUser(openid)
-  // 这个地方有一个错误，invalid credential, access_token is invalid or not latest
-  // 拉取不到userInfo
-
-  ctx.status = 200;
-  ctx.body = {
-    code: 200,
-    msg: "ok",
-    data: openid,
-  };
-});
-
 // 这是正规的登陆方法
 // 添加一个参数，sessionKeyIsValid，代表sessionKey是否还有效
-router.post("/wexin-login2", async (ctx) => {
+router.post("/weixin-login", async (ctx) => {
   console.log("request.body", ctx.request.body);
   let { code, userInfo, encryptedData, iv, sessionKeyIsValid } =
     ctx.request.body;

@@ -18,6 +18,10 @@ module.exports = db.define(
       type: Sequelize.STRING(50),
       allowNull: false,
     },
+    goods_desc: {
+      type: Sequelize.TEXT("tiny"),
+      allowNull: false,
+    },
     start_price: {
       type: Sequelize.DECIMAL(9, 2),
       allowNull: false,

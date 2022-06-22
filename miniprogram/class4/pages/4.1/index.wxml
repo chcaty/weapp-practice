@@ -1,0 +1,20 @@
+<!--index.wxml-->
+<van-button bindtap="onTap" type="primary">按钮</van-button>
+
+<van-button bindtap="incressProgress" type="primary">progress</van-button>
+
+<van-circle value="{{progress}}" text="{{progress}}%" size="120" />
+
+<van-popup position="bottom" show="{{show}}" bind:close="onClose">
+  <van-area area-list="{{areaList}}" columns-placeholder="{{['请选择','请选择','请选择']}}" title="选择对应省市区" bind:confirm="onAreaConfirm" />
+</van-popup>
+
+<view class="van-ellipsis">这是一段宽度有限的文字，后面的内容会省略大是大非生豆腐是掉</view>
+
+<view style="width: 100px;" class="van-multi-ellipsis--l2">这是一段宽度有限的文字，后面的内容会省略大是大非生豆腐是掉</view>
+
+<view style="width: 100px;" class="van-multi-ellipsis--l3 van-hairline--top">这是一段宽度有限的文字，后面的内容会省略大是大非生豆腐是掉</view>
+
+<view class="van-hairline--top">...1</view>
+
+<view style="border-top:1px solid #eee;">....2</view>

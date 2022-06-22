@@ -9,36 +9,49 @@
 
 ```js
 // index.js
-handleContentScroll: function handleContentScroll(e) {
-    var _heightRecords = this.data._heightRecords;
-    if (_heightRecords.length === 0) return;
-    var length = this.data.vtabs.length;
-    var scrollTop = e.detail.scrollTop;
-    var index = -1;
-    // 增加窗口高度
-    const windowHeight = wx.getSystemInfoAsync().windowHeight
-    if (scrollTop >= _heightRecords[this.data.activeTab] - windowHeight - 150) {
-        this.triggerEvent('scrolltoindexlower', {
-            index: this.data.activeTab
-        });
-    }
-    if (scrollTop >= _heightRecords[0] - windowHeight) {
-        for (var i = 1; i < length; i++) {
-            if (scrollTop >= _heightRecords[i - 1] - windowHeight && scrollTop < _heightRecords[i] - windowHeight) {
-                index = i;
-                break;
+const windowHeight = wx.getSystemInfoAsync().windowHeight
+calcChildHeight: function(target) {
+        var _this = this;
+
+        target.calcHeight(function(rect) {
+            _this.data._contentHeight[target.data.tabIndex] = rect.height;
+            if (_this._calcHeightTimer) {
+                clearTimeout(_this._calcHeightTimer);
             }
+            _this._calcHeightTimer = setTimeout(function() {
+                _this.calcHeight();
+            }, 100);
+        });
+    },
+handleContentScroll: function handleContentScroll(e) {
+        var _heightRecords = this.data._heightRecords;
+        if (_heightRecords.length === 0) return;
+        var length = this.data.vtabs.length;
+        var scrollTop = e.detail.scrollTop;
+        var index = -1;
+        // 增加窗口高度
+        if (scrollTop >= _heightRecords[this.data.activeTab] - windowHeight - 150) {
+            this.triggerEvent('scrolltoindexlower', {
+                index: this.data.activeTab
+            });
         }
-    } else {
-        index = 0
+        if (scrollTop >= _heightRecords[0] - windowHeight) {
+            for (var i = 1; i < length; i++) {
+                if (scrollTop >= _heightRecords[i - 1] - windowHeight && scrollTop < _heightRecords[i] - windowHeight) {
+                    index = i;
+                    break;
+                }
+            }
+        } else {
+            index = 0
+        }
+        if (index > -1 && index !== this.data.activeTab) {
+            this.triggerEvent('change', {
+                index: index
+            });
+            this.setData({
+                activeTab: index
+            });
+        }
     }
-    if (index > -1 && index !== this.data.activeTab) {
-        this.triggerEvent('change', {
-            index: index
-        });
-        this.setData({
-            activeTab: index
-        });
-    }
-}
 ```
