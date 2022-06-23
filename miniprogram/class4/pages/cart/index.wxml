@@ -1,19 +1,39 @@
 <!--pages/cart/index.wxml-->
 <van-cell-group>
-  <van-cell title="单元格" value="内容" label="描述信息" border="{{false}}">
-    <van-button slot="right-icon" plain type="info" size="mini" >编辑</van-button>
+  <van-cell title="购物车" value="" label="" border="{{false}}">
+    <van-button slot="right-icon" plain type="info" size="mini" bindtap="changeEditMode">{{ editMode ?'完成':'编辑'}}</van-button>
   </van-cell>
 </van-cell-group>
 
-<van-card
-  num="2"
-  price="2.00"
-  desc="描述信息"
-  title="商品标题"
-  thumb="https://fastly.jsdelivr.net/npm/@vant/assets/ipad.jpeg"
->
-  <view  slot="footer">
-    <van-button size="mini">按钮</van-button>
-    <van-button size="mini">按钮</van-button>
-  </view>
-</van-card>
+<block wx:for="{{carts}}" wx:key="id">
+  <van-checkbox-group value="{{ cartIdSelectedResult }}" bind:change="onSelectGoodsItem">
+    <view class="goods-card-container">
+      <view style="width: 30px;display: flex;align-items: center;justify-content: center;">
+        <van-checkbox name="{{item.id}}" icon-size="17px"></van-checkbox>
+      </view>
+      <view style="flex: 1;background-color: white;">
+        <van-card custom-class="goods-card" price="{{item.price/100}}" desc="{{item.goods_sku_desc}}" title="{{item.goods_name}}" thumb="{{item.content}}">
+          <view slot="footer">
+            <van-stepper data-num="{{item.num}}" data-id="{{item.id}}" bind:change="onCartGoodsNumChanged" value="{{ item.num }}" input-width="20px" button-size="20px" integer />
+          </view>
+        </van-card>
+      </view>
+    </view>
+  </van-checkbox-group>
+</block>
+
+<van-submit-bar wx:if="{{!editMode}}" price="{{ totalPrice }}" button-text="提交订单" bind:submit="onClickButton" tip="{{ false }}">
+  <van-checkbox value="{{ allIsSelected }}" bind:change="onSelectAll">全选</van-checkbox>
+</van-submit-bar>
+
+<van-cell-group wx:else title="" style="position: fixed;bottom: 0;left: 0; width: 100%;">
+  <van-cell border="false">
+    <view slot="title">
+      <van-checkbox class="van-cell-text" value="{{allIsSelected}}" bindtap="onSelectAll" name="all">全选
+      </van-checkbox>
+    </view>
+    <van-button bindtap="removeCartGoods" size="mini" slot="right-icon" plain type="default">删除</van-button>
+  </van-cell>
+</van-cell-group>
+
+<LoginPanel show="{{showLoginPanel}}"></LoginPanel>

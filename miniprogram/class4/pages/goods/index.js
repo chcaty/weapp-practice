@@ -29,6 +29,7 @@ Page({
         let goodsImages = res.data.goods_infos.filter(item => (item.kind == 0))
         let goodsContentInfo = res.data.goods_infos.filter(item => (item.kind == 1))[0]
         this.setData({
+          goodsId,
           goodsData: res.data,
           goodsImages,
           goodsContentInfo
@@ -126,7 +127,7 @@ Page({
       if (!this.data.selectedAttrValue[item.attr_name]) {
         wx.showModal({
           title: '没有选择全部规格',
-          showCancel: false
+          showCancel: false,
         })
         return
       }
@@ -140,12 +141,17 @@ Page({
 
   // 加入购物车
   async addToCart() {
+    var that = this
     if (!this.data.selectedGoodsSkuObject.sku) {
       wx.showModal({
         title: '请选择商品规格',
-        showCancel: false
+        showCancel: false,
+        success(res){
+          if(res.confirm){
+            that.showSkuPanelPopup();
+          }
+        }
       })
-      this.showSkuPanelPopup()
       return
     }
     let goods_id = this.data.goodsId

@@ -5,62 +5,147 @@ Page({
    * 页面的初始数据
    */
   data: {
+    cartIdSelectedResult: [],
+    showSkuPanel: false,
+    allIsSelected: false,
+    editMode: false,
+    totalPrice: 0,
+    carts: []
+  },
+
+  onSelectGoodsItem(e) {
+    let cartIdSelectedResult = e.detail
+    this.setData({
+      cartIdSelectedResult
+    })
+    this.calcTotalPrice()
+  },
+
+  onSelectAll(e) {
+    let allIsSelected = e.detail
+    let cartIdSelectedResult = this.data.cartIdSelectedResult
+    cartIdSelectedResult.length = 0
+    if (allIsSelected) {
+      let carts = this.data.carts
+      for (let j = 0; j < carts.length; j++) {
+        cartIdSelectedResult.push(`${carts[j].id}`)
+      }
+    }
+    this.setData({
+      allIsSelected,
+      cartIdSelectedResult
+    })
+    this.calcTotalPrice()
+  },
+
+  changeEditMode() {
+    let editMode = !this.data.editMode
+    this.setData({
+      editMode
+    })
+  },
+
+  async onCartGoodsNumChanged(e) {
+    let cartGoodsId = e.currentTarget.dataset.id
+    let oldNum = e.currentTarget.dataset.num
+    let num = Number(e.detail)
+    let data = { num }
+
+    let res = await getApp().wxp.requestByLoginPanel({
+      url: `${getApp().globalData.apiUrl}/user/my/carts/${cartGoodsId}`,
+      method: 'put',
+      data
+    })
+    if (res.data.msg == 'ok') {
+      wx.showToast({
+        title: num > oldNum ? '增加成功' : '减少成功',
+      })
+      let cartIdSelectedResult = this.data.cartIdSelectedResult
+      cartIdSelectedResult.some(item => {
+        if (item.id == cartGoodsId) {
+          return true
+        }
+        cartIdSelectedResult.push(`${cartGoodsId}`)
+        return false
+      })
+      let carts = this.data.carts
+      carts.some(item=>{
+        if(item.id == cartGoodsId){
+          item.num = num
+          return true
+        }
+        return false
+      })
+      this.setData({
+        cartIdSelectedResult
+      })
+    }
+    this.calcTotalPrice()
+  },
+
+  async removeCartGoods() {
+    let ids = this.data.cartIdSelectedResult
+    console.log(ids);
+    if (ids.length == 0) {
+      wx.showModal({
+        title: "没有选中需要删除的商品",
+        showCancel: false
+      })
+      return
+    }
+    let data = { ids }
+    let res = await getApp().wxp.requestByLoginPanel({
+      url: `${getApp().globalData.apiUrl}/user/my/carts`,
+      method: "delete",
+      data
+    })
+    if (res.data.msg == 'ok') {
+      let carts = this.data.carts
+      for (let j = 0; j < ids.length; j++) {
+        let id = ids[j]
+        carts.some((item, index) => {
+          if (item.id == id) {
+            carts.splice(index, 1)
+            return true
+          }
+          return false
+        })
+      }
+      this.setData({
+        carts
+      })
+    }
 
   },
 
-  /**
-   * 生命周期函数--监听页面加载
-   */
-  onLoad(options) {
-
+  calcTotalPrice() {
+    let totalPrice = 0
+    let carts = this.data.carts
+    let ids = this.data.cartIdSelectedResult
+    ids.forEach(id => {
+      carts.some(item => {
+        if (item.id == id) {
+          totalPrice += item.price * item.num
+          return true
+        }
+        return false
+      })
+    })
+    this.setData({
+      totalPrice
+    })
   },
 
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady() {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow() {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide() {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面卸载
-   */
-  onUnload() {
-
-  },
-
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh() {
-
-  },
-
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom() {
-
-  },
-
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage() {
-
+  onShow: async function () {
+    let res = await getApp().wxp.requestByLoginPanel({
+      url: `${getApp().globalData.apiUrl}/user/my/carts`,
+      method: 'get'
+    })
+    if (res.data.msg == "ok") {
+      let carts = res.data.data
+      this.setData({
+        carts
+      })
+    }
   }
 })

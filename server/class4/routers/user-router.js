@@ -7,6 +7,8 @@ const WXBizDataCrypt = require("../lib/WXBizDataCrypt");
 const config = require("../config");
 const User = require("../models/user-model");
 const SessionKey = require("../models/session-key-model");
+const GoodsCarts = require("../models/goods-carts-model");
+const db = require("../models/mysql-db");
 
 // 再开启另一个路由，还可以有一个群组
 const router = new Router({
@@ -32,11 +34,7 @@ router.use(async (ctx, next) => {
 router.use(
   koajwt({ secret: config.jwtSecret }).unless({
     // Logon interface does not require authentication
-    path: [
-      "/user/login",
-      "/user/weixin-login",
-      "/user/web-view",
-    ],
+    path: ["/user/login", "/user/weixin-login", "/user/web-view"],
   })
 );
 
@@ -55,8 +53,8 @@ router.use(async (ctx, next) => {
         config.jwtSecret
       );
       console.log("payload", payload);
-      let { openId, nickName, avatarUrl } = payload;
-      ctx["user"] = { openId, nickName, avatarUrl };
+      let { openId, nickName, avatarUrl, uid } = payload;
+      ctx["user"] = { openId, nickName, avatarUrl, uid };
       console.log("openId,nickName, avatarUrl", openId, nickName, avatarUrl);
       // 404 bug
       await next();
@@ -131,7 +129,7 @@ const weixinAuth = new WeixinAuth(
   config.miniProgram.appSecret
 );
 
-// 这是正规的登陆方法
+// 小程序登录
 // 添加一个参数，sessionKeyIsValid，代表sessionKey是否还有效
 router.post("/weixin-login", async (ctx) => {
   console.log("request.body", ctx.request.body);
@@ -163,6 +161,7 @@ router.post("/weixin-login", async (ctx) => {
     // 如果还不有找到历史上有效的sessionKey，从db中取一下
     let sesskonKeyRecordOld = await SessionKey.findOne({
       where: {
+        uid: user.id,
         id: ctx.session.sessionKeyRecordId,
       },
     });
@@ -183,19 +182,6 @@ router.post("/weixin-login", async (ctx) => {
   // 通过错误，通知前端再重新拉取code
   decryptedUserInfo = pc.decryptData(encryptedData, iv);
   console.log("解密后 decryptedUserInfo.openId: ", decryptedUserInfo.openId);
-
-  // 添加上openId与sessionKey
-  let authorizationToken = jsonwebtoken.sign(
-    {
-      nickName: decryptedUserInfo.nickName,
-      avatarUrl: decryptedUserInfo.avatarUrl,
-      openId: decryptedUserInfo.openId,
-      sessionKey: sessionKey,
-    },
-    config.jwtSecret,
-    { expiresIn: "3d" } //修改为3天，这是sessionKey的有效时间
-  );
-  Object.assign(decryptedUserInfo, { authorizationToken });
 
   let user = await User.findOne({
     where: { openId: decryptedUserInfo.openId },
@@ -221,11 +207,148 @@ router.post("/weixin-login", async (ctx) => {
   }
   ctx.session.sessionKeyRecordId = sessionKeyRecord.id;
 
+  // 添加上openId与sessionKey
+  let authorizationToken = jsonwebtoken.sign(
+    {
+      uid: user.id,
+      nickName: decryptedUserInfo.nickName,
+      avatarUrl: decryptedUserInfo.avatarUrl,
+      openId: decryptedUserInfo.openId,
+      sessionKey: sessionKey,
+    },
+    config.jwtSecret,
+    { expiresIn: "3d" } //修改为3天，这是sessionKey的有效时间
+  );
+  Object.assign(decryptedUserInfo, { authorizationToken });
+
   ctx.status = 200;
   ctx.body = {
     code: 200,
     msg: "ok",
     data: decryptedUserInfo,
+  };
+});
+
+// 新增购物车数据
+router.post("/my/carts", async (ctx) => {
+  let { uid: user_id } = ctx.user;
+  let { goods_id, goods_sku_id, goods_sku_desc } = ctx.request.body;
+  let num = 1;
+  let hasExistRes = await GoodsCarts.findOne({
+    where: {
+      user_id,
+      goods_id,
+      goods_sku_id,
+    },
+  });
+
+  if (hasExistRes) {
+    let res = await GoodsCarts.update(
+      {
+        num: hasExistRes.num + 1,
+      },
+      {
+        where: {
+          user_id,
+          goods_id,
+          goods_sku_id,
+        },
+      }
+    );
+
+    ctx.status = 200;
+    ctx.body = {
+      code: 200,
+      msg: res[0] > 0 ? "ok" : "",
+      data: res,
+    };
+  } else {
+    let res = await GoodsCarts.create({
+      user_id,
+      goods_id,
+      goods_sku_id,
+      goods_sku_desc,
+      num,
+    });
+
+    ctx.status = 200;
+    ctx.body = {
+      code: 200,
+      msg: res ? "ok" : "",
+      data: res,
+    };
+  }
+});
+
+// 获得购物车数据
+router.get("/my/carts", async (ctx) => {
+  let { uid: user_id } = ctx.user;
+  let res = await db.query(
+    `Select a.id, a.goods_sku_id, a.goods_id, a.num, a.goods_sku_desc, b.price, c.goods_name, (select d.content from goods_info as d where d.goods_id = a.goods_id and d.kind = 0 limit 1) as content from goods_carts as a
+      left outer join goods_sku as b on a.goods_sku_id = b.id
+      left outer join goods as c on a.goods_id = c.id
+      where a.user_id = :user_id`,
+    { replacements: { user_id }, type: db.QueryTypes.SELECT }
+  );
+
+  ctx.status = 200;
+  ctx.body = {
+    code: 200,
+    msg: "ok",
+    data: res,
+  };
+});
+
+// 修改购物车数据
+router.put("/my/carts/:id", async (ctx) => {
+  let id = Number(ctx.params.id);
+  let { num } = ctx.request.body;
+  let hasExistRes = await GoodsCarts.findOne({
+    where: {
+      id,
+    },
+  });
+  if (hasExistRes) {
+    let res = await GoodsCarts.update(
+      {
+        num,
+      },
+      {
+        where: {
+          id,
+        },
+      }
+    );
+    ctx.status = 200;
+    ctx.body = {
+      code: 200,
+      msg: res[0] > 0 ? "ok" : "",
+      data: res,
+    };
+  } else {
+    ctx.status = 200;
+    ctx.body = {
+      code: 200,
+      msg: "",
+      data: res,
+    };
+  }
+});
+
+// 删除购物车数据
+router.delete("/my/carts", async (ctx) => {
+  let { ids } = ctx.request.body;
+  let res = await GoodsCarts.destroy({
+    where: {
+      id: ids,
+    },
+  });
+
+  ctx.status = 200;
+  ctx.body = {
+    code: 200,
+    msg: res > 0 ? "ok" : "",
+    data: res,
   };
 });
 

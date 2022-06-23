@@ -13,7 +13,10 @@ const dateFormat = require("../lib/date-format");
 
 module.exports = (app) => {
   app.use(logger());
-  app.use(koaBody()); //parse request.body
+  app.use(koaBody({
+    multipart:true,
+    strict:false
+  })); //parse request.body
 
   // 静态文件，自动跳过koajwt检测了
   app.use(serve({ rootDir: "static", rootPath: "/static" }));
