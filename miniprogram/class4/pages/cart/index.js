@@ -61,23 +61,25 @@ Page({
         title: num > oldNum ? '增加成功' : '减少成功',
       })
       let cartIdSelectedResult = this.data.cartIdSelectedResult
-      cartIdSelectedResult.some(item => {
-        if (item.id == cartGoodsId) {
+      var isExist = cartIdSelectedResult.some(item => {
+        if (item == `${cartGoodsId}`) {
           return true
         }
-        cartIdSelectedResult.push(`${cartGoodsId}`)
         return false
       })
+      if (!isExist) {
+        cartIdSelectedResult.push(`${cartGoodsId}`)
+      }
+      this.setData({
+        cartIdSelectedResult
+      })
       let carts = this.data.carts
-      carts.some(item=>{
-        if(item.id == cartGoodsId){
+      carts.some(item => {
+        if (item.id == cartGoodsId) {
           item.num = num
           return true
         }
         return false
-      })
-      this.setData({
-        cartIdSelectedResult
       })
     }
     this.calcTotalPrice()
@@ -133,6 +135,34 @@ Page({
     })
     this.setData({
       totalPrice
+    })
+  },
+
+  onClickButton() {
+    let ids = this.data.cartIdSelectedResult
+    let payment = this.data.totalPrice
+    if (ids.length == 0) {
+      wx, showModal({
+        title: '请选择要下单的商品',
+        showCancel: false
+      })
+      return
+    }
+    let cartData = []
+    let carts = this.data.carts
+    ids.forEach(id => {
+      carts.forEach(item => {
+        if (item.id == id) {
+          cartData.push(Object.assign({}, item))
+          return true
+        }
+        return false
+      })
+    })
+    wx.navigateTo({
+      url: '/pages/confirm-order/index',
+      success:res=>
+      res.eventChannel.emit('cartData',{data:cartData,payment})
     })
   },
 

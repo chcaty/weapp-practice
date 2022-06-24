@@ -1,0 +1,14 @@
+/* pages/address-list/index.wxss */
+.vertical-align {
+  display: flex;
+  align-items: center;
+  margin-right: 10px;
+}
+.new-address{
+  position: fixed !important;
+  width: 100%;
+  bottom: 0;
+}
+page{
+  height: 100%;
+}

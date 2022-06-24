@@ -1,20 +1,25 @@
 {
   "pages": [
+    "pages/address-list/index",
+    "pages/new-address/index",
+    "pages/cart/index",
+    "pages/confirm-order/index",
     "pages/index/index",
     "pages/category/index",
     "pages/goods/index",
-    "pages/cart/index",
     "pages/my/index",
     "pages/4.1/index"
   ],
   "window": {
+    "backgroundColor": "#F6F6F6",
     "backgroundTextStyle": "light",
-    "navigationBarBackgroundColor": "#fff",
-    "navigationBarTitleText": "微信小程序全栈开发",
+    "navigationBarBackgroundColor": "#F6F6F6",
+    "navigationBarTitleText": "商城小程序",
     "navigationBarTextStyle": "black"
   },
   "tabBar": {
-    "list": [{
+    "list": [
+      {
         "pagePath": "pages/index/index",
         "text": "首页",
         "iconPath": "/static/image/index.png",

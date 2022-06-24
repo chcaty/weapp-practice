@@ -8,6 +8,7 @@ const config = require("../config");
 const User = require("../models/user-model");
 const SessionKey = require("../models/session-key-model");
 const GoodsCarts = require("../models/goods-carts-model");
+const Address = require("../models/address-model");
 const db = require("../models/mysql-db");
 
 // 再开启另一个路由，还可以有一个群组
@@ -349,6 +350,41 @@ router.delete("/my/carts", async (ctx) => {
     code: 200,
     msg: res > 0 ? "ok" : "",
     data: res,
+  };
+});
+
+// 获取收货地址
+router.get("/my/address", async (ctx) => {
+  let { uid: user_id } = ctx.user;
+  let addressList = await Address.findAll({
+    where: {
+      user_id,
+    },
+  });
+
+  ctx.status = 200;
+  ctx.body = {
+    code: 200,
+    msg: "ok",
+    data: addressList,
+  };
+});
+
+// 获取收货地址
+router.post("/my/address", async (ctx) => {
+  let { uid: user_id } = ctx.user;
+  let {userName, telNumber, detailInfo, region} = ctx.request.body;
+  let addressList = await Address.findAll({
+    where: {
+      user_id,
+    },
+  });
+
+  ctx.status = 200;
+  ctx.body = {
+    code: 200,
+    msg: "ok",
+    data: addressList,
   };
 });
 

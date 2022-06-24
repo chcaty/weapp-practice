@@ -1,0 +1,10 @@
+/* pages/confirm-order/index.wxss */
+.goods-card{
+  background-color: #fefefe !important;
+}
+.goods-card .van-card__title{
+  margin-top: 10px;
+}
+.total-price .van-cell__value{
+  color: rgb(236, 176, 98) !important;
+}

@@ -21,11 +21,9 @@
     </view>
   </van-checkbox-group>
 </block>
-
-<van-submit-bar wx:if="{{!editMode}}" price="{{ totalPrice }}" button-text="提交订单" bind:submit="onClickButton" tip="{{ false }}">
+<van-submit-bar wx:if="{{!editMode}}" price="{{ totalPrice }}" button-text="结算" bind:submit="onClickButton" tip="{{ false }}">
   <van-checkbox value="{{ allIsSelected }}" bind:change="onSelectAll">全选</van-checkbox>
 </van-submit-bar>
-
 <van-cell-group wx:else title="" style="position: fixed;bottom: 0;left: 0; width: 100%;">
   <van-cell border="false">
     <view slot="title">

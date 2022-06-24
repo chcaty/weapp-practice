@@ -1,0 +1,27 @@
+<!--pages/confirm-order/index.wxml-->
+
+<van-cell-group>
+  <van-cell bind:click="toSelectAddress" icon="location-o" size="large" title="收件人：姓名" value="13800138000" label="快递地址：XXXX地址XXXX地址XXXX地址" is-link />
+</van-cell-group>
+<view style="padding: 10px;">
+  <block wx:for="{{carts}}" wx:key="id">
+    <van-card custom-class="goods-card" price="{{item.price/100}}" desc="{{item.goods_sku_desc}}" title="{{item.goods_name}}" thumb="{{item.content}}">
+      <view slot="footer">
+        <text>x{{item.num}}</text>
+      </view>
+    </van-card>
+  </block>
+</view>
+<van-cell-group title=" ">
+  <van-cell title="优惠" value="暂无优惠" isLink />
+</van-cell-group>
+<van-cell-group title=" ">
+  <van-cell title="配送方式" value="快递免运费" isLink />
+  <van-field value="{{ username }}" clearable label="订单备注" placeholder="请输入备注" bind:click-icon="onClickIcon" />
+</van-cell-group>
+<van-cell-group title=" ">
+  <van-cell title="商品金额" value="￥{{payment/100}}" />
+  <van-cell title="运费" value="￥{{shipping/100}}" />
+  <van-cell custom-class="total-price" title="" value="合计：￥{{totalPrice/100}}" />
+</van-cell-group>
+<van-submit-bar price="{{totalPrice}}" button-text="提交订单" bind:submit="onSubmit" />

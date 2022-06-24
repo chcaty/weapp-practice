@@ -1,4 +1,5 @@
 {
+  "navigationBarTitleText": "购物车",
   "usingComponents": {
     "van-cell": "@vant/weapp/cell/index",
     "van-cell-group": "@vant/weapp/cell-group/index",
@@ -8,6 +9,6 @@
     "van-submit-bar": "@vant/weapp/submit-bar/index",
     "van-checkbox": "@vant/weapp/checkbox/index",
     "van-checkbox-group": "@vant/weapp/checkbox-group/index",
-    "LoginPanel":"../../components/login"
+    "LoginPanel": "../../components/login"
   }
 }
