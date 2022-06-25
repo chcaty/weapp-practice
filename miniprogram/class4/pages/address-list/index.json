@@ -6,6 +6,7 @@
     "van-icon": "@vant/weapp/icon/index",
     "van-radio": "@vant/weapp/radio/index",
     "van-radio-group": "@vant/weapp/radio-group/index",
-    "van-button": "@vant/weapp/button/index"
+    "van-button": "@vant/weapp/button/index",
+    "mp-slideview": "weui-miniprogram/slideview/slideview"
   }
 }

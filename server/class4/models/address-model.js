@@ -32,6 +32,12 @@ module.exports = db.define(
     },
   },
   {
+    indexes: [
+      {
+        unique: true,
+        fields: ["tel_number"],
+      },
+    ],
     underscored: true,
     freezeTableName: true,
     timestamps: true,

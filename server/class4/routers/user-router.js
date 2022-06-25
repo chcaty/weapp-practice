@@ -10,6 +10,7 @@ const SessionKey = require("../models/session-key-model");
 const GoodsCarts = require("../models/goods-carts-model");
 const Address = require("../models/address-model");
 const db = require("../models/mysql-db");
+const Pay = require("./pay");
 
 // 再开启另一个路由，还可以有一个群组
 const router = new Router({
@@ -370,22 +371,81 @@ router.get("/my/address", async (ctx) => {
   };
 });
 
-// 获取收货地址
+// 新增收货地址
 router.post("/my/address", async (ctx) => {
-  let { uid: user_id } = ctx.user;
-  let {userName, telNumber, detailInfo, region} = ctx.request.body;
-  let addressList = await Address.findAll({
+  console.log(ctx.request.body);
+  let res;
+  let { uid: userId } = ctx.user;
+  let { userName, telNumber, detailInfo, region } = ctx.request.body;
+  let hasThisAddress = await Address.findOne({
     where: {
-      user_id,
+      telNumber,
+      userId
+    },
+  });
+  if (!hasThisAddress) {
+    res = await Address.create({
+      userId,
+      userName,
+      telNumber,
+      detailInfo,
+      region,
+    });
+  }
+
+  ctx.status = 200;
+  ctx.body = {
+    code: 200,
+    msg: res ? "ok" : "",
+    data: res,
+  };
+});
+
+// 修改收货地址
+router.put("/my/address", async (ctx) => {
+  console.log(ctx.request.body);
+  let { userName, telNumber, detailInfo, region, id } = ctx.request.body;
+  let res = await Address.update(
+    {
+      userName,
+      telNumber,
+      detailInfo,
+      region,
+    },
+    {
+      where: {
+        id,
+      },
+    }
+  );
+
+  ctx.status = 200;
+  ctx.body = {
+    code: 200,
+    msg: res[0] > 0 ? "ok" : "",
+    data: res,
+  };
+});
+
+// 删除购物车数据
+router.delete("/my/address/:id", async (ctx) => {
+  let { uid: userId } = ctx.user;
+  let id = Number(ctx.params.id);
+  let res = await Address.destroy({
+    where: {
+      id,
+      userId
     },
   });
 
   ctx.status = 200;
   ctx.body = {
     code: 200,
-    msg: "ok",
-    data: addressList,
+    msg: res > 0 ? "ok" : "",
+    data: res,
   };
 });
+
+Pay.init(router);
 
 module.exports = router;

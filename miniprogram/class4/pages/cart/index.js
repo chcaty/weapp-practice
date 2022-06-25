@@ -166,7 +166,7 @@ Page({
     })
   },
 
-  onShow: async function () {
+  async onShow () {
     let res = await getApp().wxp.requestByLoginPanel({
       url: `${getApp().globalData.apiUrl}/user/my/carts`,
       method: 'get'

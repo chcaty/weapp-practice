@@ -16,21 +16,26 @@
 
 <van-radio-group value="{{ selectedAddressId }}" bind:change="onAddressIdChange">
   <van-cell-group title=" ">
-  <block wx:for="{{addressList}}" wx:key="id">
-    <van-cell use-label-slot>
-      <view slot="icon" class="vertical-align">
-        <van-radio name="{{item.id}}"></van-radio>
-      </view>
-      <view slot="title">
-        {{item.userName}}，{{item.telNumber}}
-      </view>
-      <view slot="label">
-        {{fn.join(item.region)}} {{item.detailInfo}}
-      </view>
-      <van-icon name="edit" slot="right-icon"></van-icon>
-    </van-cell>
-  </block>
+    <block wx:for="{{addressList}}" wx:key="id">
+      <mp-slideview data-id="{{item.id}}" buttons="{{slideButtons}}" bindbuttontap="onSlideButtonTap">
+        <van-cell use-label-slot>
+          <view slot="icon" class="vertical-align">
+            <van-radio name="{{item.id}}"></van-radio>
+          </view>
+          <view slot="title">
+            {{item.userName}}，{{item.telNumber}}
+          </view>
+          <view slot="label">
+            {{fn.join(item.region)}} {{item.detailInfo}}
+          </view>
+          <van-icon data-id="{{item.id}}" bind:click="edit" slot="right-icon" name="edit"></van-icon>
+        </van-cell>
+      </mp-slideview>
+    </block>
   </van-cell-group>
 </van-radio-group>
-
-<van-button custom-class="new-address" type="primary" size="large">新增收货地址</van-button>
+<view class="address-btns">
+  <van-button bind:click="confirm" type="default" size="large">选择</van-button>
+  <van-button custom-class="new-address" bind:click="navigateToNewAddressPage" type="primary" size="large">新增收货地址
+  </van-button>
+</view>

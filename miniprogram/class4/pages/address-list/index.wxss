@@ -1,14 +1,16 @@
 /* pages/address-list/index.wxss */
-.vertical-align {
-  display: flex;
-  align-items: center;
-  margin-right: 10px;
-}
-.new-address{
-  position: fixed !important;
-  width: 100%;
-  bottom: 0;
+.vertical-align{
+  display: flex;align-items: center;
 }
 page{
   height: 100%;
+}
+.address-btns{
+  position: fixed !important;
+  width: 690rpx;
+  bottom: 0;
+  margin: 30rpx;
+}
+.new-address{
+  margin-top: 30rpx;
 }
