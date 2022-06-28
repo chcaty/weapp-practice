@@ -39,7 +39,7 @@ Page({
     })
   },
 
-  async onSubmit(e) {
+  async onSubmit() {
     if (!this.data.address.id) {
       wx.showModal({
         title: "请选择收货地址",
@@ -72,25 +72,51 @@ Page({
       package: payArgs.package,
       paySign: payArgs.paySign,
       timeStamp: payArgs.timeStamp,
-      signType:payArgs.paySign,
-      success: async (res1) => {
+      signType: payArgs.signType,
+      success: (res1) => {
         console.log('success', res1);
         if (res1.errMsg == 'requestPayment:ok') {
           wx.showModal({
             title: "支付成功",
-            showCancel: false
+            showCancel: false,
+            success: () => {
+              this.removeCartsGoods(goodsCartsIds)
+            }
           })
         } else {
           wx.showModal({
             title: "支付取消或失败，请稍后重试",
             showCancel: false
           })
+
         }
       },
       fail: (err1) => {
         console.log('fail', err1);
       }
     })
+  },
+
+  async removeCartsGoods(goodsCardsIds) {
+    let data = {
+      ids: goodsCardsIds
+    }
+    let res2 = await wx.wxp.requestByLoginPanel({
+      url: `${getApp().globalData.apiUrl}/user/my/carts`,
+      method: 'delete',
+      data
+    })
+    console.log('res2', res);
+    if (res2.data.msg == 'ok') {
+      wx.switchTab({
+        url: '/pages/cart/index',
+      })
+    } else {
+      wx.showModal({
+        title: '更新购物车数据失败',
+        showCancel: false
+      })
+    }
   },
 
   /**

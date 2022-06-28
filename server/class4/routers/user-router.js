@@ -135,12 +135,11 @@ const weixinAuth = new WeixinAuth(
 // 添加一个参数，sessionKeyIsValid，代表sessionKey是否还有效
 router.post("/weixin-login", async (ctx) => {
   console.log("request.body", ctx.request.body);
-  let { code, userInfo, encryptedData, iv, sessionKeyIsValid } =
-    ctx.request.body;
+  let { code, encryptedData, iv, sessionKeyIsValid } = ctx.request.body;
 
   console.log("sessionKeyIsValid", sessionKeyIsValid);
 
-  let sessionKey;
+  let sessionKey, openId;
   // 如果客户端有token，则传来，解析
   if (sessionKeyIsValid) {
     let token = ctx.request.header.authorization;
@@ -175,7 +174,9 @@ router.post("/weixin-login", async (ctx) => {
     const token = await weixinAuth.getAccessToken(code);
     // 目前微信的 session_key, 有效期3天
     sessionKey = token.data.session_key;
+    openId = token.data.openid;
     console.log("sessionKey2", sessionKey);
+    console.log("openId", openId);
   }
 
   let decryptedUserInfo;
@@ -183,10 +184,12 @@ router.post("/weixin-login", async (ctx) => {
   // 有可能因为sessionKey不与code匹配，而出错
   // 通过错误，通知前端再重新拉取code
   decryptedUserInfo = pc.decryptData(encryptedData, iv);
+  decryptedUserInfo.openId = openId;
   console.log("解密后 decryptedUserInfo.openId: ", decryptedUserInfo.openId);
+  console.log("解密后 decryptedUserInfo: ", decryptedUserInfo);
 
   let user = await User.findOne({
-    where: { openId: decryptedUserInfo.openId },
+    where: { openId: openId },
   });
   if (!user) {
     //如果用户没有查到，则创建
@@ -380,7 +383,7 @@ router.post("/my/address", async (ctx) => {
   let hasThisAddress = await Address.findOne({
     where: {
       telNumber,
-      userId
+      userId,
     },
   });
   if (!hasThisAddress) {
@@ -434,7 +437,7 @@ router.delete("/my/address/:id", async (ctx) => {
   let res = await Address.destroy({
     where: {
       id,
-      userId
+      userId,
     },
   });
 

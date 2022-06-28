@@ -141,14 +141,13 @@ Page({
 
   // 加入购物车
   async addToCart() {
-    var that = this
     if (!this.data.selectedGoodsSkuObject.sku) {
       wx.showModal({
         title: '请选择商品规格',
         showCancel: false,
-        success(res){
-          if(res.confirm){
-            that.showSkuPanelPopup();
+        success: (res) => {
+          if (res.confirm) {
+            this.showSkuPanelPopup();
           }
         }
       })

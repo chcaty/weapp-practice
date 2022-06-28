@@ -7,6 +7,7 @@
     "@koa/router": "^9.0.1",
     "art-template": "^4.13.2",
     "babel-runtime": "^6.26.0",
+    "cross-env": "^7.0.3",
     "html-minifier": "^4.0.0",
     "jsonwebtoken": "^8.5.1",
     "koa": "^2.12.0",
@@ -22,13 +23,15 @@
     "koa3-wechat": "^1.1.9",
     "mysql2": "^2.3.3",
     "nodemon": "^2.0.4",
+    "raw-body": "^2.5.1",
     "redis": "^4.1.0",
     "sequelize": "^6.21.0",
-    "short-uuid": "^4.2.0"
+    "short-uuid": "^4.2.0",
+    "weixin-pay": "^1.1.7"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "nodemon app.js"
+    "dev": "cross-env DEBUG=app:wepay nodemon app.js"
   },
   "author": "caty",
   "license": "ISC"
